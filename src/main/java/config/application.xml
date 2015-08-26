@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+	<!-- session配置文件资源 -->
+	<bean id="session-config-file" class="com.here.framework.config.FileResourceFactory">
+		<property name="filePath">
+			<value>env/config/session-config.js</value>
+		</property>
+	</bean>
+	
+	
+	<!-- hSessionConfig 文件配置 -->
+	<bean id="defaultHsessionConfig"  class="com.here.framework.config.ConfigFactory">
+ 		<property name="configFile" ref="session-config-file">
+		</property>
+		<property name="name">
+			<value>sessionConfig</value>
+		</property>
+		<property name="className">
+			<value>com.here.framework.core.config.HSessionConfig</value>
+		</property>
+ 	</bean>
+ 	<!-- 实例注册 -->
+	<bean class="com.here.framework.bean.InstanceManager.Register">
+		<constructor-arg ref="defaultHsessionConfig"></constructor-arg>
+	</bean>
+</beans>
